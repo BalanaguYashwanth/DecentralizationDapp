@@ -2,23 +2,23 @@ import { useState } from "react";
 import loader from './assets/loader-unscreen.gif'
 import { Body } from "./Body";
 
-export const FeedPostDesign = ({posts,createPostFunction,walletaddress,connect,Loading}) =>{ //mainly UI design functionality goes here👇
+export const FeedPostDesign = ({posts,createPostFunction,walletaddress,connect,Loading}) =>{
     const [postText, setPostText] = useState('')
     const [hastagText, setHastagText] = useState('')
     const [limit, setLimit] = useState(10)
 
-    async function submit(){ //calling post request
+    async function submit(){ 
       if(postText && hastagText && posts.length)
       {
         await createPostFunction(postText,hastagText,posts.length)
-        setHastagText('') //once post request is done, making the user inputs data clear
-        setPostText('') //once post request is done, making the user inputs data clear
+        setHastagText('') 
+        setPostText('') 
       }else{
         alert('Please enter all inputs')
       }
     }
 
-    function increase(){ //pagination
+    function increase(){
       setLimit(limit+10)
     }
 

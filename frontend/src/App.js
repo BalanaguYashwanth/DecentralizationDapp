@@ -2,7 +2,7 @@ import './App.css';
 import {useEffect, useState} from 'react'
 import * as anchor from "@project-serum/anchor";
 import {Buffer} from 'buffer';
-import idl from './idl.json' //get the smartcontract data structure model from target folder in anchor rust
+import idl from './idl.json'
 import { Connection, PublicKey, clusterApiUrl  } from '@solana/web3.js';
 import { Program, AnchorProvider, web3, utils } from '@project-serum/anchor';
 import { FeedPostDesign } from './feedPostDesign';
@@ -43,7 +43,7 @@ const App = () => {
       if (solana) {
         if (solana.isPhantom) {
           const response = await solana.connect({
-            onlyIfTrusted: true, //second time if anyone connected it won't show anypop on screen
+            onlyIfTrusted: true, 
           });
           setWalletAddress(response.publicKey.toString());
         }
@@ -74,7 +74,7 @@ const App = () => {
     await getPosts();
   };
 
-  const connectWalletRenderPopup = async () => { //first time users are connecting to wallet this function will activate
+  const connectWalletRenderPopup = async () => { // connecting to wallet this function will activate
     try{
       setLoading(true)
       if (solana) {
@@ -94,12 +94,11 @@ const App = () => {
     );
   };
 
-  const createPostFunction = async(text,hastag,position) =>{ //createPostFunction connects to the smartcontract via rpc and lib.json  to create post
-    const provider = getProvider() //checks & verify the dapp it can able to connect solana network
-    const program = new Program(idl,programID,provider) //program will communicate to solana network via rpc using lib.json as model
-    const num = new anchor.BN(position); //to pass number into the smartcontract need to convert into binary
+  const createPostFunction = async(text,hastag,position) =>{ 
+    const provider = getProvider() 
+    const program = new Program(idl,programID,provider) 
+    const num = new anchor.BN(position); 
     try{
-      //post request will verify the lib.json and using metadata address it will verify the programID and create the block in solana
       setLoading(true)
       const tx = await program.rpc.createPost(text,hastag,num,false,{ 
         accounts:{
@@ -109,9 +108,7 @@ const App = () => {
         },
         signers:[feedPostApp] 
       })
-      //const account_data  = await program.account.feedPostApp.fetch(feedPostApp.publicKey)
-      //console.log('user_data',user_data,'tx',tx,'feedpostapp',feedPostApp.publicKey.toString(),'user',provider.wallet.publicKey.toString(),'systemProgram',SystemProgram.programId.toString())
-      onLoad();
+        onLoad();
     }catch(err){
       console.log(err.message)
     }finally{
@@ -125,7 +122,7 @@ const App = () => {
     try{
       setLoading(true)
       await Promise.all(
-        ((await connection.getProgramAccounts(programID)).map(async(tx,index)=>( //no need to write smartcontract to get the data, just pulling all transaction respective programID and showing to user
+        ((await connection.getProgramAccounts(programID)).map(async(tx,index)=>( 
           {
           ...(await program.account.feedPostApp.fetch(tx.pubkey)),
             pubkey:tx.pubkey.toString(),
