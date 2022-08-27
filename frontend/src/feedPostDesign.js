@@ -2,7 +2,7 @@ import { useState } from "react";
 import loader from './assets/loader-unscreen.gif'
 import { Body } from "./Body";
 
-export const FeedPostDesign = ({posts,createPostFunction,walletaddress,connect,Loading}) =>{
+export const FeedPostDesign = ({posts,createPostFunction,walletaddress,connect,Loading}) =>{ 
     const [postText, setPostText] = useState('')
     const [hastagText, setHastagText] = useState('')
     const [limit, setLimit] = useState(10)
@@ -47,7 +47,7 @@ export const FeedPostDesign = ({posts,createPostFunction,walletaddress,connect,L
                   value={hastagText}
                   onChange={(e) => setHastagText(e.target.value)}
                   rows={1}
-                  placeholder="Enter your hastag"
+                  placeholder="#️⃣ or 🔗"
                   className="hastagInputStyles"
                 />
                 <button className="buttonStyle" onClick={submit}>
