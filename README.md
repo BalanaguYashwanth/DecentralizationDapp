@@ -1,2 +1,1 @@
-# SolanaDapp-AnchorRust-React
 # DecentralizationDapp
